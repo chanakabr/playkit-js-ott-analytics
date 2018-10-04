@@ -245,7 +245,10 @@ export default class OttAnalytics extends BasePlugin {
       data => {
         if (data === CONCURRENT) {
           this._concurrentFlag = true;
-        } else {
+        } else if (data.result && data.result.error && data.result.error.message && data.result.error.message.indexof(CONCURRENT) >= 0){
+          this._concurrentFlag = true;
+        }
+        else {
           this.logger.debug('Analytics event sent', bookMark);
         }
       },
